@@ -1,0 +1,12 @@
+@import "../../constants/globalConstants";
+
+.container {
+  height: 70px;
+  background-color: $COLOR_GREY;
+  @include flex(row, flex-start, center, nowrap);
+  padding: 0 40px;
+}
+
+.logo {
+  color: darkgray;
+}

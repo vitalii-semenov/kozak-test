@@ -1,0 +1,1 @@
+export const SET_USERS_TO_STORE = 'SET_USERS_TO_STORE';
