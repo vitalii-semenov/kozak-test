@@ -3,8 +3,8 @@ import Login from '../../components/Login';
 
 class LoginPage extends Component {
 
-  handleLogin = (user) => {
-    console.log('login', user);
+  handleLogin = ({login, password}) => {
+    console.log('login', {login, password});
   };
 
   handleRegistration = (user) => {

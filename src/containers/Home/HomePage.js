@@ -24,11 +24,26 @@ class HomePage extends Component {
     }
   }
 
+  handleAddNewEmployee = (data) => {
+    console.log('New user', data);
+  };
+
+  handleEditEmployee = (data) => {
+    console.log('Edit user', data);
+  };
+
+  handleDeleteEmployee = (id) => {
+    console.log('Delete user with id:', id)
+  };
+
   render() {
     const {users} = this.state;
     return (
         <Home
           users={users}
+          handleAddNewEmployee={this.handleAddNewEmployee}
+          handleEditEmployee={this.handleEditEmployee}
+          handleDeleteEmployee={this.handleDeleteEmployee}
         />
     );
   }

@@ -7,7 +7,7 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {AddNewEmployee} from './AddNewEmployee/AddNewEmployee';
 
-export const Home = ({users}) => {
+export const Home = ({users, handleAddNewEmployee, handleEditEmployee, handleDeleteEmployee}) => {
 
   const [addNewVisibility, setAddNewVisibility] = useState(false);
   const [staff, setStaff] = useState([]);
@@ -31,7 +31,7 @@ export const Home = ({users}) => {
   };
 
   const onRowEditSave = (event) => {
-    // setCloneStaff([])
+    handleEditEmployee(staff);
   };
 
   const onRowEditCancel = (event) => {
@@ -41,13 +41,14 @@ export const Home = ({users}) => {
   };
 
   const onRowEditDelete = (event) => {
+    handleDeleteEmployee(event.id);
     const filteredStaff = [...staff].filter((el) => el.id !== event.id);
     setStaff(filteredStaff);
   };
 
   const handleAddEmployee = (data) => {
-    setAddNewVisibility(false)
-    console.log('Added user', data);
+    setAddNewVisibility(false);
+    handleAddNewEmployee(data);
   };
 
   return (
