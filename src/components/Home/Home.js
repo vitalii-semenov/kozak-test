@@ -4,11 +4,12 @@ import { Header } from '../Header/Header';
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {InputText} from 'primereact/inputtext';
+import {Button} from 'primereact/button';
+import {AddNewEmployee} from './AddNewEmployee/AddNewEmployee';
 
 export const Home = ({users}) => {
-  let myRef = createRef();
 
-  const [testEdit, setTestEdit] = useState(true)
+  const [addNewVisibility, setAddNewVisibility] = useState(false);
   const [staff, setStaff] = useState([]);
   const [cloneStaff, setCloneStaff] = useState([]);
   useEffect(() => {
@@ -26,8 +27,6 @@ export const Home = ({users}) => {
   };
 
   const editorForRowEditing = (props, field) => {
-    console.log(props)
-    console.log(myRef)
     return <InputText type="text" value={props.rowData[field]} onChange={(e) => onEditorValueChangeForRowEditing(props, e.target.value)} />;
   };
 
@@ -46,10 +45,17 @@ export const Home = ({users}) => {
     setStaff(filteredStaff);
   };
 
+  const handleAddEmployee = (data) => {
+    setAddNewVisibility(false)
+    console.log('Added user', data);
+  };
+
   return (
       <div className={styles.container}>
         <Header />
-        <DataTable ref={(el) => myRef = el} value={staff} editMode={'row'} paginator={true} rows={5}
+        <Button label="Add new" onClick={() => setAddNewVisibility(!addNewVisibility)} />
+        {addNewVisibility && <AddNewEmployee handleAddEmployee={handleAddEmployee}/>}
+        <DataTable value={staff} editMode={'row'} paginator={true} rows={5}
                    onRowEditInit={onRowEditInit}
                    onRowEditSave={onRowEditSave}
                    onRowEditCancel={onRowEditCancel}>
@@ -57,7 +63,7 @@ export const Home = ({users}) => {
           <Column field="name" header="Name" editor={(props) => editorForRowEditing(props, 'name')} />
           <Column field="surname" header="Surname" editor={(props) => editorForRowEditing(props, 'surname')} />
           <Column style={{width: '50%'}} field="desc" header="Description" editor={(props) => editorForRowEditing(props, 'desc')} />
-          <Column rowEditor={testEdit} style={{'width': '70px', 'textAlign': 'center'}} />
+          <Column rowEditor={true} style={{'width': '70px', 'textAlign': 'center'}} />
           <Column style={{'width': '70px', 'textAlign': 'center'}}
                   body={(e) => <button onClick={() => onRowEditDelete(e)}>Delete</button>} />
         </DataTable>

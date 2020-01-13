@@ -1,0 +1,14 @@
+@import "../../../constants/globalConstants";
+.container {
+  @include flex(column, center, center, nowrap);
+
+  div {
+    min-width: 400px;
+    span {
+      width: 40%;
+    }
+    input {
+      width: 60%;
+    }
+  }
+}

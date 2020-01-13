@@ -1,0 +1,26 @@
+@import "../../constants/globalConstants";
+
+.container {
+  @include flex(column, center, center, nowrap);
+
+  .signForm {
+    text-align: center;
+
+    div {
+      min-width: 400px;
+      margin-bottom: 1rem;
+
+      span {
+        width: 20%;
+      }
+
+      input {
+        width: 80%;
+      }
+    }
+  }
+
+  .formBottom {
+    margin-top: 2rem;
+  }
+}
