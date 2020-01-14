@@ -4,43 +4,45 @@ import Home from '../../components/Home';
 import { userService } from '../../services/testServices';
 import { setUsersToStore } from '../../actions/HomeActions/homeActions';
 import { getAllUsers } from '../../reducers/home/homeSelectors';
+import Login from '../../components/Login';
 // import Routes from '../../constants/routes';
 
 class HomePage extends Component {
 
   state = {
-    users: []
+    staff: []
   };
 
   async componentDidMount() {
-    // const {setUsersToStore} = this.props;
-    // const fetchUsers = await userService.getAllUsers();
-    // setUsersToStore(fetchUsers.users);
+    let res = await userService.getAllEmployee()
+    if (res) this.props.setUsersToStore({staff: res})
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.allUsers !== this.props.allUsers) {
-      this.setState({users: this.props.allUsers})
+      this.setState({staff: this.props.allUsers})
     }
   }
 
-  handleAddNewEmployee = (data) => {
-    console.log('New user', data);
+  handleAddNewEmployee = async (data) => {
+    let res = await userService.addEmployee(data);
+    if (res) this.props.setUsersToStore({staff: res})
   };
 
-  handleEditEmployee = (data) => {
-    console.log('Edit user', data);
-  };
+  handleEditEmployee = async (data) => {
+    let res = await userService.editEmployee(data);
+    if (res) this.props.setUsersToStore({staff: res})  };
 
-  handleDeleteEmployee = (id) => {
-    console.log('Delete user with id:', id)
+  handleDeleteEmployee = async (data) => {
+    let res = await userService.deleteEmployee(data);
+    if (res) this.props.setUsersToStore({staff: res})
   };
 
   render() {
-    const {users} = this.state;
+    const {staff} = this.state;
     return (
         <Home
-          users={users}
+          usersAll={staff}
           handleAddNewEmployee={this.handleAddNewEmployee}
           handleEditEmployee={this.handleEditEmployee}
           handleDeleteEmployee={this.handleDeleteEmployee}

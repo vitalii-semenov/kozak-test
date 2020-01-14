@@ -21,11 +21,60 @@ class UserService extends Component {
     }
   };
 
+  getData = async (url) => {
+    try {
+      const res = await fetch(`${this.#apiUrl}/${url}`,
+        {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+        })
+      if (!res.ok) throw new Error(`Could not fetch data from ${this.#apiUrl}/${url}`);
+      return res;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   register = async (data) => await this.postData('register', data);
+
   login = async (data) => {
     let res = await this.postData('login', data);
-    return await res.json();
+    if (res) return await res.json();
   }
+
+  getAllEmployee = async () => {
+    let res = await this.getData('all');
+    if (res) return await res.json()
+  }
+
+  addEmployee = async (data) => {
+    let res = await this.postData('add', data);
+    if (res) {
+      let staff = await this.getAllEmployee()
+      return staff
+    }
+  }
+
+  deleteEmployee = async (data) => {
+    let res = await this.postData('delete', data);
+    if (res) {
+      let staff = await this.getAllEmployee()
+      return staff
+    }
+  }
+
+  editEmployee = async (data) => {
+    console.log(data)
+    let res = await this.postData('edit', data);
+    if (res) {
+      let staff = await this.getAllEmployee()
+      return staff
+    }
+  }
+
 };
 
 export const userService = new UserService();

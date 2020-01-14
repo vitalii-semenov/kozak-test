@@ -7,14 +7,14 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {AddNewEmployee} from './AddNewEmployee/AddNewEmployee';
 
-export const Home = ({users, handleAddNewEmployee, handleEditEmployee, handleDeleteEmployee}) => {
+export const Home = ({usersAll, handleAddNewEmployee, handleEditEmployee, handleDeleteEmployee}) => {
 
   const [addNewVisibility, setAddNewVisibility] = useState(false);
   const [staff, setStaff] = useState([]);
   const [cloneStaff, setCloneStaff] = useState([]);
   useEffect(() => {
-    setStaff(users)
-  }, [users]);
+    setStaff(usersAll.staff)
+  }, [usersAll]);
 
   const onEditorValueChangeForRowEditing = (props, value) => {
     let updatedStaff = [...props.value];
@@ -23,7 +23,8 @@ export const Home = ({users, handleAddNewEmployee, handleEditEmployee, handleDel
   };
 
   const onRowEditInit = (event) => {
-    setCloneStaff(prevState => ({...prevState, [event.data.id]: {...event.data}}));
+    const id = staff.findIndex(el => el._id === event.data._id)
+    setCloneStaff(prevState => ({...prevState, [id]: {...event.data}}));
   };
 
   const editorForRowEditing = (props, field) => {
@@ -31,19 +32,17 @@ export const Home = ({users, handleAddNewEmployee, handleEditEmployee, handleDel
   };
 
   const onRowEditSave = (event) => {
-    handleEditEmployee(staff);
+    handleEditEmployee(event.data);
   };
 
   const onRowEditCancel = (event) => {
     let staffFromState = [...staff];
-    staffFromState[event.index] = cloneStaff[event.data.id];
+    staffFromState[event.index] = cloneStaff[event.data._id];
     setStaff(staffFromState);
   };
 
   const onRowEditDelete = (event) => {
-    handleDeleteEmployee(event.id);
-    const filteredStaff = [...staff].filter((el) => el.id !== event.id);
-    setStaff(filteredStaff);
+    handleDeleteEmployee(event);
   };
 
   const handleAddEmployee = (data) => {
@@ -60,10 +59,10 @@ export const Home = ({users, handleAddNewEmployee, handleEditEmployee, handleDel
                    onRowEditInit={onRowEditInit}
                    onRowEditSave={onRowEditSave}
                    onRowEditCancel={onRowEditCancel}>
-          <Column style={{width: '5%'}}  field="id" header="Id" />
+          <Column field="_id" header="Id" />
           <Column field="name" header="Name" editor={(props) => editorForRowEditing(props, 'name')} />
-          <Column field="surname" header="Surname" editor={(props) => editorForRowEditing(props, 'surname')} />
-          <Column style={{width: '50%'}} field="desc" header="Description" editor={(props) => editorForRowEditing(props, 'desc')} />
+          <Column field="birth" header="Birthday" editor={(props) => editorForRowEditing(props, 'birth')} />
+          <Column field="salary" header="Salary" editor={(props) => editorForRowEditing(props, 'salary')} />
           <Column rowEditor={true} style={{'width': '70px', 'textAlign': 'center'}} />
           <Column style={{'width': '70px', 'textAlign': 'center'}}
                   body={(e) => <button onClick={() => onRowEditDelete(e)}>Delete</button>} />
