@@ -32,8 +32,8 @@ const Login = ({handleLogin, handleRegistration}) => {
             <div className={styles.signForm}>
               <h1>Login page</h1>
               <div className="p-inputgroup">
-                <span className="p-inputgroup-addon">Login</span>
-                <InputText data-input value={user['login']} placeholder="login" name={'login'} keyfilter="alphanum" onChange={(e) => handleChange(e)}/>
+                <span className="p-inputgroup-addon">Email</span>
+                <InputText data-input value={user['email']} placeholder="email" name={'email'} keyfilter="alphanum" onChange={(e) => handleChange(e)}/>
               </div>
 
               <div className="p-inputgroup">
@@ -50,7 +50,7 @@ const Login = ({handleLogin, handleRegistration}) => {
             <div className={styles.signForm}>
               <h1>Registration page</h1>
               <div className="p-inputgroup">
-                <span className="p-inputgroup-addon">Login</span>
+                <span className="p-inputgroup-addon">Name</span>
                 <InputText data-input id={'registrationLogin'} value={user['login']} placeholder="login" name={'login'} keyfilter="alphanum" onChange={(e) => handleChange(e)}/>
               </div>
 

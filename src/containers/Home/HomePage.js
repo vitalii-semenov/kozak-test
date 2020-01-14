@@ -13,9 +13,9 @@ class HomePage extends Component {
   };
 
   async componentDidMount() {
-    const {setUsersToStore} = this.props;
-    const fetchUsers = await userService.getAllUsers();
-    setUsersToStore(fetchUsers.users);
+    // const {setUsersToStore} = this.props;
+    // const fetchUsers = await userService.getAllUsers();
+    // setUsersToStore(fetchUsers.users);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
